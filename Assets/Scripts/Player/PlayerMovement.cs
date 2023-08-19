@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private float _inputX;
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
+    private bool _canMove => LevelManager.IsRunning;
 
     private void Awake()
     {
@@ -26,12 +27,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Grounded = DetectGround();
         _inputX = Input.GetAxisRaw("Horizontal");
         Movement();
-        Grounded = DetectGround();
         if (Grounded)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && _canMove)
             {
                 _rb.velocity *= Vector2.right;
                 _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
@@ -48,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         var moving = Mathf.Abs(_inputX) > .5f;
         
-        if (moving)
+        if (moving && _canMove)
         {
             _rb.AddForce(Vector2.right * (_inputX * _speed * Time.deltaTime), ForceMode2D.Impulse);
         }
