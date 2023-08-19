@@ -20,6 +20,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        Instantiate(_player, transform.position, quaternion.identity);
+        var playerT = Instantiate(_player, transform.position, quaternion.identity).transform;
+        FindObjectOfType<CameraFollow>().SetTarget(playerT);
     }
 }
