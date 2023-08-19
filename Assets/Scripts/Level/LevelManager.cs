@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public int Points => _points;
     public static bool IsRunning { get; private set; }
+    [SerializeField] private EndLevelUI _endUI;
     private int _points;
 
     private void Start()
@@ -21,12 +22,14 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
+        _endUI.HideUI();
         Debug.Log("Start Level");
         IsRunning = true;
     }
 
     public void EndLevel()
     {
+        _endUI.ShowUI(_points);
         Debug.Log($"End Level with {_points} points!");
         IsRunning = false;
     }
