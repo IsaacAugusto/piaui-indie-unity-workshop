@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 public class PlayerMovement : MonoBehaviour
 {
     public bool Grounded { get; private set; }
+    public Vector2 RBVel => _rb.velocity;
     [SerializeField] private float _speed;
     [SerializeField] private float _maxSpeed;
     [Range(0, 1)]
